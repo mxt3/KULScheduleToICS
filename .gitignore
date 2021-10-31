@@ -1,0 +1,11 @@
+# Python stuff
+# -------------
+__pycache__/*
+# Ignore virtualenv local files
+env/*
+
+
+# output ics files
+*.ics
+# VS Code
+.vscode/*
