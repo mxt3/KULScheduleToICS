@@ -8,7 +8,7 @@ various applications and services.
 ## Motivation
 PhD students have no way to sync/import the schedule of their teaching
 assignments into a calendar. To avoid laborious and error-prone
-copying by hand, this script can generate and `.ics` file.
+copying by hand, this script can generate an `.ics` file.
 
 
 ## How to use
@@ -23,7 +23,7 @@ schedule. The schedule opens in a separate window. Set the schedule to
 browser.
 
 **NOTE**: As this tool is still experimental, I recommend to import
-the .ics file in new, bland calendar to see if everything is fine.
+the .ics file in new, blank calendar to see if everything is fine.
 This way, your calendar does not risk to mess up.
 
 **NOTE 2**: This URL is only temporarily valid. But still amply long
@@ -43,10 +43,11 @@ requirements.txt`
 
 ## How it works
 This script scrapes the public SAP schedule which is accessible through
-'onderwijsaanbod'. It uses the 
+'onderwijsaanbod'. It extrasts all the information from the HTML table 
+elements in the semester view of the schedule.
 
 As this scrapes ugly SAP-generated HTML, this code is very prone to
-any changes to schedule page. A **little changes in the page's HTML** will
+any changes to schedule page. A **little change in the page's HTML** will
 most likely completely **break this tool**.
 
 ## Ideas and possible improvements
@@ -54,7 +55,7 @@ most likely completely **break this tool**.
 * add command-line arguments instead of constants in code
 * better packaging so it's really a distributable tool
 * The link acquired as described above is only temporary. Instead, using the ID 
-  of the course in the pre\_laden.htm page (<http://www.kuleuven.be/sapredir/uurrooster/pre_laden.htm?OBJID=50448161&OTYPE=L&TAAL=E&SEL_JAAR=2018>)
+  of the course in the pre\_laden.htm page (<http://www.kuleuven.be/sapredir/uurrooster/pre_laden.htm?OBJID=50448161&OTYPE=D&TAAL=E&SEL_JAAR=2021>)
   and then sending the correct POST-request to get to the semester-view page
   would be much more robust approach
 * an extension / different script to periodically dump the ics, compare it with
