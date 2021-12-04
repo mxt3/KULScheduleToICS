@@ -12,6 +12,7 @@ notably:
 -  Avoiding human error in doing this.
 """
 
+from datetime import tzinfo
 from typing import Any, List, Tuple
 
 from arrow.arrow import Arrow
@@ -30,8 +31,9 @@ import calevent     # event data structure and conversion to ics formats
 # ----------
 
 # URL of the semester-view schedule
-URL_SCHEDULE=r'https://webwsp.aps.kuleuven.be/sap(bD1ubCZjPTIwMA==)/public/bsp/sap/z_mijnuurrstrs/uurrooster_sem_lijst.htm?sap-params=dGl0ZWxsaWpzdD1TY2hlZHVsZSZvdHlwZT1EJm9iamlkPTUwNDQ4MTYxJmJlZ2lud2VlazE9MjAyMTQ0JmVpbmRld2VlazE9MjAyMTQ4JmJlZ2lud2VlazI9Mjk5OTAxJmVpbmRld2VlazI9MjAwMDAxJnNjX29iamlkPTAwMDAwMDAwJnNlc3Npb25pZD0wMDUwNTY5NEM4QzMxRUVDOEVDQUIzOEFEOTRBMkU1QSZ0eXBlX2dyb2VwPQ%3d%3d'
+URL_SCHEDULE=r'https://webwsp.aps.kuleuven.be/sap(bD1ubCZjPTIwMA==)/public/bsp/sap/z_mijnuurrstrs/uurrooster_sem_lijst.htm?sap-params=dGl0ZWxsaWpzdD1TY2hlZHVsZSZvdHlwZT1EJm9iamlkPTUwNDQ4MTYxJmJlZ2lud2VlazE9MjAyMTQ4JmVpbmRld2VlazE9MjAyMTUwJmJlZ2lud2VlazI9Mjk5OTAxJmVpbmRld2VlazI9MjAwMDAxJnNjX29iamlkPTAwMDAwMDAwJnNlc3Npb25pZD0wMDUwNTY5NDhCRkExRURDOTU5RjkzQUI4M0U3RUNEQiZ0eXBlX2dyb2VwPQ%3d%3d'
 #TODO: seems to be valid only for short time??
+
 
 # Time range regex (both NL and EN compatible)
 REGEXPR_TIME_RANGE = r"(\d+:\d+)\s*\w+\s*(\d+:\d+)"
@@ -130,7 +132,7 @@ def construct_timestamp(date: str, time: str) -> arrow.Arrow:
     m = re.match(REGEXPR_Date, date) 
     # We assume that the year is the current year. Otherwise need to scrape elsewhere on page
     date_str = f"{arrow.get().year}-{m[2].zfill(2)}-{m[1].zfill(2)}"
-    return arrow.get( date_str + " " + time)
+    return arrow.get( date_str + " " + time).replace(tzinfo='Europe/Brussels')
 
 # Aux for finding event in the table list
 # ----------------------------------------
