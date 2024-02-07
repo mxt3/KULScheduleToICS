@@ -33,7 +33,7 @@ for you to run this script.
 This script relies on other packages which you can get via pip. To
 install these packages, run:
 ```shell
-pip instal -r requirements.txt
+pip install -r requirements.txt
 ```
 
 Preferably do this in a `virtualenv`.
