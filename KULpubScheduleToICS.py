@@ -31,7 +31,7 @@ import calevent     # event data structure and conversion to ics formats
 # ----------
 
 # URL of the semester-view schedule
-URL_SCHEDULE=r'https://webwsp.aps.kuleuven.be/sap(bD1ubCZjPTIwMA==)/public/bsp/sap/z_mijnuurrstrs/uurrooster_sem_lijst.htm?sap-params=dGl0ZWxsaWpzdD1TY2hlZHVsZSZvdHlwZT1EJm9iamlkPTUwNDQ4MTYxJmJlZ2lud2VlazE9MjAyMTQ4JmVpbmRld2VlazE9MjAyMTUwJmJlZ2lud2VlazI9Mjk5OTAxJmVpbmRld2VlazI9MjAwMDAxJnNjX29iamlkPTAwMDAwMDAwJnNlc3Npb25pZD0wMDUwNTY5NDhCRkExRURDOTU5RjkzQUI4M0U3RUNEQiZ0eXBlX2dyb2VwPQ%3d%3d'
+URL_SCHEDULE=r'https://webwsp.aps.kuleuven.be/sap(bD1lbiZjPTIwMA==)/public/bsp/sap/z_mijnuurrstrs/uurrooster_sem_lijst.htm?sap-params=dGl0ZWxsaWpzdD1VdXJyb29zdGVyJm90eXBlPUQmb2JqaWQ9NTEwMTE3MDkmYmVnaW53ZWVrMT0yMDI0MDkmZWluZGV3ZWVrMT0yMDI0MjAmYmVnaW53ZWVrMj0mZWluZGV3ZWVrMj0mc2Nfb2JqaWQ9MDAwMDAwMDAmc2Vzc2lvbmlkPUJEMTQwNzY3QzY3MzFFREVCMUI1RTIyOUNDNDQzMDhDJnR5cGVfZ3JvZXA9'
 #TODO: seems to be valid only for short time??
 
 
@@ -75,7 +75,14 @@ def main():
         event_list += process_event_rows(tables_lst, cur_ind)
         cur_ind += 2
     
+    # Sort events according to start time. 
+    event_list.sort(key=lambda el: el.dt_start)
+    # NOTE sorting is not persisted when making a calender object
+    # When serializing the calender object, the order is different
+    # Workaround? could modify the file: structure of ICS seems to be in blocks
+
     print_list(event_list)
+
 
     with open(ICS_FILENAME, 'w') as ics_file:
         ics_file.writelines(calevent.conv_to_ics_calendar(event_list))
